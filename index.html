@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Curs interactiu de Python en català">
+  <title>Python Pas a Pas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#inici" aria-label="Anar a l'inici">
+        <span class="brand-mark">&gt;_</span>
+        <span>Python<br><strong>Pas a Pas</strong></span>
+      </a>
+
+      <div class="progress-card">
+        <div class="progress-copy">
+          <span>El teu progrés</span>
+          <strong id="progress-label">0 / 12</strong>
+        </div>
+        <div class="progress-track"><span id="progress-bar"></span></div>
+      </div>
+
+      <nav id="course-nav" aria-label="Temari del curs"></nav>
+
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        <span>Python s'executa al teu navegador</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" aria-label="Col·lapsa la barra lateral" aria-expanded="true" title="Col·lapsa la barra lateral">☰</button>
+        <div class="breadcrumb" id="breadcrumb">Inici</div>
+        <span class="creator-credit">Creat per <strong>Nil Puche</strong></span>
+        <button class="outline-button" id="reset-progress">Reinicia el progrés</button>
+      </header>
+      <div id="page-content" tabindex="-1"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/selection/active-line.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
