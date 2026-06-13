@@ -43,6 +43,7 @@ button { cursor: pointer; }
   transform: translateX(0);
   transition: transform .25s ease;
 }
+.sidebar-close, .sidebar-backdrop { display: none; }
 .brand {
   display: flex;
   gap: 12px;
@@ -584,6 +585,37 @@ code:not(.code-block) { padding: 2px 5px; border-radius: 5px; color: var(--green
     box-shadow: var(--shadow);
   }
   .sidebar.open { transform: translateX(0); }
+  .sidebar-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 10px;
+    color: white;
+    background: rgba(255,255,255,.1);
+    font-size: 26px;
+    line-height: 1;
+  }
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 19;
+    display: block;
+    border: 0;
+    background: rgba(10,24,17,.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+  }
+  .sidebar.open + .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
   .app-shell.sidebar-collapsed .sidebar { transform: translateX(-100%); }
   .app-shell.sidebar-collapsed .sidebar.open { transform: translateX(0); }
   .main-content { margin-left: 0; }

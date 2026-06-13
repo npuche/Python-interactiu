@@ -283,6 +283,8 @@ const toast = document.querySelector("#toast");
 const appShell = document.querySelector(".app-shell");
 const sidebar = document.querySelector("#sidebar");
 const menuButton = document.querySelector("#menu-button");
+const sidebarClose = document.querySelector("#sidebar-close");
+const sidebarBackdrop = document.querySelector("#sidebar-backdrop");
 const desktopMedia = window.matchMedia("(min-width: 981px)");
 
 function navigate(hash) {
@@ -804,6 +806,14 @@ menuButton.addEventListener("click", () => {
   }
   updateSidebarButton();
 });
+
+function closeMobileSidebar() {
+  sidebar.classList.remove("open");
+  updateSidebarButton();
+}
+
+sidebarClose.addEventListener("click", closeMobileSidebar);
+sidebarBackdrop.addEventListener("click", closeMobileSidebar);
 
 desktopMedia.addEventListener("change", restoreSidebarState);
 restoreSidebarState();
