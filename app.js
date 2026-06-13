@@ -405,21 +405,34 @@ function renderExercise(index) {
   state.currentExercise = Math.max(0, Math.min(index, exercises.length - 1));
   state.hintLevel = 0;
   const ex = exercises[state.currentExercise];
+  const theory = getExerciseTheory(ex);
   setActive("exercicis", `Exercici ${state.currentExercise + 1} de ${exercises.length}`);
   page.innerHTML = `
     <div class="exercise-workspace difficulty-${state.difficulty}">
-      <aside class="exercise-brief">
-        <div class="difficulty-control" aria-label="Dificultat de l'exercici">
-          <button data-difficulty="easy" class="${state.difficulty === "easy" ? "active" : ""}">Fàcil · Amb ajuda</button>
-          <button data-difficulty="hard" class="${state.difficulty === "hard" ? "active" : ""}">Difícil · Sense avisos</button>
+      <section class="exercise-brief">
+        <div class="exercise-brief-main">
+          <span class="eyebrow">Exercici ${state.currentExercise + 1} · ${ex.topic}</span>
+          <h2>${ex.title}</h2>
+          <p>${ex.description}</p>
+          <h3>Requisits</h3>
+          <ul class="requirements">${ex.requirements.map(r => `<li>${r}</li>`).join("")}</ul>
         </div>
-        <span class="eyebrow">Exercici ${state.currentExercise + 1} · ${ex.topic}</span>
-        <h2>${ex.title}</h2>
-        <p>${ex.description}</p>
-        <h3>Requisits</h3>
-        <ul class="requirements">${ex.requirements.map(r => `<li>${r}</li>`).join("")}</ul>
-        <div class="hint-box"><strong>Necessites una pista?</strong><div id="hint-text">Comença provant la teva idea.</div><button id="hint-button">Mostra una pista</button></div>
-      </aside>
+        <div class="exercise-brief-tools">
+          <div class="difficulty-control" aria-label="Dificultat de l'exercici">
+            <button data-difficulty="easy" class="${state.difficulty === "easy" ? "active" : ""}">Fàcil · Amb ajuda</button>
+            <button data-difficulty="hard" class="${state.difficulty === "hard" ? "active" : ""}">Difícil · Sense avisos</button>
+          </div>
+          <div class="hint-box"><strong>Necessites una pista?</strong><div id="hint-text">Comença provant la teva idea.</div><button id="hint-button">Mostra una pista</button></div>
+          <button class="theory-toggle" id="theory-toggle" aria-expanded="false">Mostra teoria</button>
+        </div>
+        <div class="exercise-theory" id="exercise-theory" hidden>
+          <div class="exercise-theory-heading">
+            <div><span class="eyebrow">Recordatori teòric</span><h3>${theory.title}</h3></div>
+            <button class="theory-close" id="theory-close" aria-label="Amaga la teoria">×</button>
+          </div>
+          <div class="lesson-body">${theory.html}</div>
+        </div>
+      </section>
       <section>
         <div class="editor-panel">
           <div class="editor-toolbar">
@@ -454,6 +467,8 @@ function renderExercise(index) {
     setFeedback("info", "Codi reiniciat", "Torna-ho a provar quan vulguis.");
   });
   page.querySelectorAll("[data-difficulty]").forEach(button => button.addEventListener("click", () => setDifficulty(button.dataset.difficulty)));
+  page.querySelector("#theory-toggle").addEventListener("click", toggleExerciseTheory);
+  page.querySelector("#theory-close").addEventListener("click", toggleExerciseTheory);
   page.querySelectorAll("[data-program-input]").forEach(field => field.addEventListener("keydown", event => {
     if (event.key === "Enter") runCurrentExercise();
   }));
@@ -461,6 +476,34 @@ function renderExercise(index) {
   page.querySelector("#all-exercises").addEventListener("click", () => navigate("exercicis"));
   page.querySelector("#previous-exercise").addEventListener("click", () => navigate(`exercici-${state.currentExercise}`));
   page.querySelector("#next-exercise").addEventListener("click", () => navigate(`exercici-${state.currentExercise + 2}`));
+}
+
+function getExerciseTheory(exercise) {
+  const sectionByExercise = {
+    "hola-mon": 0,
+    "corregeix-errors": 0,
+    "variable": 1,
+    "text-variable": 1,
+    "concatenacio": 1,
+    "com-et-dius": 2,
+    "repara-programa": 3,
+    "suma": 4,
+    "edat-futura": 4,
+    "precedencia": 5,
+    "mitjana": 6,
+    "tiquet": 5
+  };
+  return chapters[0].sections[sectionByExercise[exercise.id] ?? 0];
+}
+
+function toggleExerciseTheory() {
+  const theory = document.querySelector("#exercise-theory");
+  const toggle = document.querySelector("#theory-toggle");
+  const willOpen = theory.hidden;
+  theory.hidden = !willOpen;
+  toggle.textContent = willOpen ? "Amaga teoria" : "Mostra teoria";
+  toggle.setAttribute("aria-expanded", String(willOpen));
+  if (willOpen) theory.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function initializeCodeEditor(textarea) {
