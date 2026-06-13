@@ -343,6 +343,8 @@ function renderHome() {
 }
 
 function renderChapter(chapter) {
+  const mobileView = window.matchMedia("(max-width: 760px)").matches;
+  const chapterIndexCollapsed = mobileView ? true : state.indexCollapsed;
   setActive(chapter.id, `${chapter.number} · ${chapter.title}`);
   page.innerHTML = `
     <header class="lesson-header">
@@ -350,34 +352,45 @@ function renderChapter(chapter) {
       <h1>${chapter.title}</h1>
       <p>${chapter.description}</p>
     </header>
-    <div class="lesson-layout ${state.indexCollapsed ? "index-collapsed" : ""}">
+    <div class="lesson-layout ${chapterIndexCollapsed ? "index-collapsed" : ""}">
       <article class="lesson-body">
         ${chapter.sections.map((section, index) => `<section id="${chapter.id}-${index}"><h2>${index + 1}. ${section.title}</h2>${section.html}</section>`).join("")}
         ${chapter.id === "interaccions" ? `<section class="exercise-launch"><div><h2>Posa-ho en pràctica</h2><p>12 exercicis interactius amb feedback personalitzat.</p></div><button class="primary-button" data-go="exercicis">Comença a practicar</button></section>` : ""}
       </article>
       <aside class="lesson-index"><strong>En aquest capítol</strong>${chapter.sections.map((s, i) => `<button data-scroll="${chapter.id}-${i}">${i + 1}. ${s.title}</button>`).join("")}</aside>
     </div>
-    <button class="index-toggle" id="index-toggle" aria-label="${state.indexCollapsed ? "Mostra l'índex" : "Amaga l'índex"}" aria-expanded="${!state.indexCollapsed}" title="${state.indexCollapsed ? "Mostra l'índex" : "Amaga l'índex"}">
+    <button class="index-toggle" id="index-toggle" aria-label="${chapterIndexCollapsed ? "Mostra l'índex" : "Amaga l'índex"}" aria-expanded="${!chapterIndexCollapsed}" title="${chapterIndexCollapsed ? "Mostra l'índex" : "Amaga l'índex"}">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
-      <span class="index-chevron">${state.indexCollapsed ? "‹" : "›"}</span>
+      <span class="index-chevron">${chapterIndexCollapsed ? "‹" : "›"}</span>
     </button>`;
   page.querySelector("[data-go]")?.addEventListener("click", e => navigate(e.target.dataset.go));
   page.querySelector("#index-toggle").addEventListener("click", () => {
-    state.indexCollapsed = !state.indexCollapsed;
-    localStorage.setItem("python-index-collapsed", String(state.indexCollapsed));
     const layout = page.querySelector(".lesson-layout");
-    layout.classList.toggle("index-collapsed", state.indexCollapsed);
+    const collapsed = layout.classList.toggle("index-collapsed");
+    if (!window.matchMedia("(max-width: 760px)").matches) {
+      state.indexCollapsed = collapsed;
+      localStorage.setItem("python-index-collapsed", String(collapsed));
+    }
     const toggle = page.querySelector("#index-toggle");
-    const label = state.indexCollapsed ? "Mostra l'índex" : "Amaga l'índex";
+    const label = collapsed ? "Mostra l'índex" : "Amaga l'índex";
     toggle.setAttribute("aria-label", label);
-    toggle.setAttribute("aria-expanded", String(!state.indexCollapsed));
+    toggle.setAttribute("aria-expanded", String(!collapsed));
     toggle.title = label;
-    toggle.querySelector(".index-chevron").textContent = state.indexCollapsed ? "‹" : "›";
+    toggle.querySelector(".index-chevron").textContent = collapsed ? "‹" : "›";
   });
   page.querySelectorAll("[data-scroll]").forEach(button => button.addEventListener("click", () => {
     document.querySelector(`#${button.dataset.scroll}`).scrollIntoView({ behavior: "smooth", block: "start" });
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      const layout = page.querySelector(".lesson-layout");
+      const toggle = page.querySelector("#index-toggle");
+      layout.classList.add("index-collapsed");
+      toggle.setAttribute("aria-label", "Mostra l'índex");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.title = "Mostra l'índex";
+      toggle.querySelector(".index-chevron").textContent = "‹";
+    }
   }));
 }
 
