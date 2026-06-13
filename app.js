@@ -327,8 +327,8 @@ function renderHome() {
       <h1>Aprèn Python fent Python.</h1>
       <p>Descobreix els conceptes essencials, prova el codi al navegador i rep feedback immediat mentre avances.</p>
       <div class="hero-actions">
-        <button class="primary-button" data-go="interaccions">Comença el curs</button>
-        <button class="secondary-button" data-go="exercicis">Ves als exercicis</button>
+        <a class="primary-button" href="#interaccions">Comença el curs</a>
+        <a class="secondary-button" href="#exercicis">Ves als exercicis</a>
       </div>
     </section>
     <h2 class="section-title">El teu recorregut</h2>
@@ -337,9 +337,8 @@ function renderHome() {
         <span class="chapter-id">CAPÍTOL ${chapter.number}</span>
         <h3>${chapter.title}</h3>
         <p>${chapter.description}</p>
-        <button class="text-link" data-go="${chapter.id}">Explora el capítol →</button>
+        <a class="text-link" href="#${chapter.id}">Explora el capítol →</a>
       </article>`).join("")}</div>`;
-  page.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => navigate(b.dataset.go)));
 }
 
 function renderChapter(chapter) {
@@ -355,7 +354,7 @@ function renderChapter(chapter) {
     <div class="lesson-layout ${chapterIndexCollapsed ? "index-collapsed" : ""}">
       <article class="lesson-body">
         ${chapter.sections.map((section, index) => `<section id="${chapter.id}-${index}"><h2>${index + 1}. ${section.title}</h2>${section.html}</section>`).join("")}
-        ${chapter.id === "interaccions" ? `<section class="exercise-launch"><div><h2>Posa-ho en pràctica</h2><p>12 exercicis interactius amb feedback personalitzat.</p></div><button class="primary-button" data-go="exercicis">Comença a practicar</button></section>` : ""}
+        ${chapter.id === "interaccions" ? `<section class="exercise-launch"><div><h2>Posa-ho en pràctica</h2><p>12 exercicis interactius amb feedback personalitzat.</p></div><a class="primary-button" href="#exercicis">Comença a practicar</a></section>` : ""}
       </article>
       <aside class="lesson-index"><strong>En aquest capítol</strong>${chapter.sections.map((s, i) => `<button data-scroll="${chapter.id}-${i}">${i + 1}. ${s.title}</button>`).join("")}</aside>
     </div>
@@ -365,7 +364,6 @@ function renderChapter(chapter) {
       </svg>
       <span class="index-chevron">${chapterIndexCollapsed ? "‹" : "›"}</span>
     </button>`;
-  page.querySelector("[data-go]")?.addEventListener("click", e => navigate(e.target.dataset.go));
   page.querySelector("#index-toggle").addEventListener("click", () => {
     const layout = page.querySelector(".lesson-layout");
     const collapsed = layout.classList.toggle("index-collapsed");
