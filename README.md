@@ -6,7 +6,7 @@ amb frontend.
 ## Contingut
 
 - Teoria organitzada en quatre capítols.
-- Dotze exercicis interactius per al capítol d'interaccions bàsiques.
+- Trenta exercicis interactius repartits entre els quatre capítols.
 - Execució de Python al navegador amb Pyodide.
 - Proves automàtiques i feedback específic per errors habituals.
 - Pistes progressives i progrés guardat amb `localStorage`.

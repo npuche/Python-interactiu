@@ -260,6 +260,173 @@ const exercises = [
       { inputs: ["Llapis", "1.25", "4"], output: "Llapis\n5.0" }
     ],
     hints: ["Necessites tres input().", "El preu és decimal i la quantitat és entera.", "Calcula round(preu * quantitat, 2) i mostra el producte i el total en print() separats."]
+  },
+  {
+    id: "major-edat", chapter: 2, theorySection: 2, title: "Major d'edat", topic: "Condicional if",
+    description: "Demana l'edat. Mostra «Pots entrar» si té 18 anys o més i «Encara no» en cas contrari.",
+    requirements: ["Utilitza if i else", "Ha de funcionar amb qualsevol edat"],
+    starter: `edat = int(input("Edat: "))\n# Pren una decisió\n`,
+    inputLabels: ["Edat"],
+    tests: [{ inputs: ["18"], output: "Pots entrar" }, { inputs: ["12"], output: "Encara no" }],
+    hints: ["Compara edat amb 18.", "Necessites dos camins diferents.", `if edat >= 18:`]
+  },
+  {
+    id: "parell-senar", chapter: 2, theorySection: 1, title: "Parell o senar", topic: "Comparacions",
+    description: "Demana un nombre enter i mostra «Parell» o «Senar».",
+    requirements: ["Utilitza l'operador %", "Compara el residu amb zero"],
+    starter: `numero = int(input("Número: "))\n`,
+    inputLabels: ["Número enter"],
+    tests: [{ inputs: ["8"], output: "Parell" }, { inputs: ["7"], output: "Senar" }],
+    hints: ["El residu de dividir un parell entre 2 és zero.", "Utilitza numero % 2.", `if numero % 2 == 0:`]
+  },
+  {
+    id: "classifica-nota", chapter: 2, theorySection: 3, title: "Classifica una nota", topic: "elif",
+    description: "Mostra «Excel·lent» per notes de 9 o més, «Aprovat» per notes de 5 o més i «Suspès» per a la resta.",
+    requirements: ["Utilitza if, elif i else", "Comprova primer la nota més alta"],
+    starter: `nota = float(input("Nota: "))\n`,
+    inputLabels: ["Nota"],
+    tests: [{ inputs: ["9.5"], output: "Excel·lent" }, { inputs: ["6"], output: "Aprovat" }, { inputs: ["3"], output: "Suspès" }],
+    hints: ["Comença comprovant nota >= 9.", "La segona condició és nota >= 5.", "L'últim cas no necessita condició."]
+  },
+  {
+    id: "contrasenya", chapter: 2, theorySection: 0, title: "Comprova la contrasenya", topic: "Booleans",
+    description: "Demana una contrasenya. Mostra «Accés concedit» només si és exactament python123.",
+    requirements: ["Compara textos amb ==", "Mostra «Accés denegat» si no coincideix"],
+    starter: `contrasenya = input("Contrasenya: ")\n`,
+    inputLabels: ["Contrasenya"],
+    tests: [{ inputs: ["python123"], output: "Accés concedit" }, { inputs: ["Python123"], output: "Accés denegat" }],
+    hints: ["Python diferencia majúscules i minúscules.", "Utilitza == per comparar.", `if contrasenya == "python123":`]
+  },
+  {
+    id: "entrada-parc", chapter: 2, theorySection: 5, title: "Entrada al parc", topic: "and",
+    description: "Es pot pujar a l'atracció si l'edat és de 12 anys o més i l'alçada és de 140 cm o més.",
+    requirements: ["Utilitza and", "Mostra «Pots pujar» o «No pots pujar»"],
+    starter: `edat = int(input("Edat: "))\nalcada = int(input("Alçada en cm: "))\n`,
+    inputLabels: ["Edat", "Alçada en cm"],
+    tests: [{ inputs: ["14", "150"], output: "Pots pujar" }, { inputs: ["14", "130"], output: "No pots pujar" }, { inputs: ["10", "150"], output: "No pots pujar" }],
+    hints: ["Les dues condicions han de ser certes.", "Connecta les comparacions amb and.", `edat >= 12 and alcada >= 140`]
+  },
+  {
+    id: "repara-sagnat", chapter: 2, theorySection: 4, title: "Repara el sagnat", topic: "Sagnat",
+    description: "Corregeix el sagnat perquè el programa mostri el missatge adequat.",
+    requirements: ["Utilitza quatre espais dins de cada bloc", "No canviïs les condicions"],
+    starter: `temperatura = int(input("Temperatura: "))\nif temperatura > 25:\nprint("Fa calor")\nelse:\nprint("No fa calor")`,
+    inputLabels: ["Temperatura"],
+    tests: [{ inputs: ["30"], output: "Fa calor" }, { inputs: ["18"], output: "No fa calor" }],
+    hints: ["Les instruccions que depenen d'un if van sagnades.", "Fes el mateix després d'else.", "Afegeix quatre espais abans de cada print()."]
+  },
+  {
+    id: "extrems-paraula", chapter: 3, theorySection: 0, title: "Extrems d'una paraula", topic: "Índexs",
+    description: "Demana una paraula i mostra primer el primer caràcter i després l'últim, en línies separades.",
+    requirements: ["Utilitza índexs positius i negatius", "Mostra dues línies"],
+    starter: `paraula = input("Paraula: ")\n`,
+    inputLabels: ["Paraula"],
+    tests: [{ inputs: ["python"], output: "p\nn" }, { inputs: ["codi"], output: "c\ni" }],
+    hints: ["El primer índex és 0.", "L'índex -1 representa l'últim caràcter.", "Fes dos print()."]
+  },
+  {
+    id: "afegeix-llista", chapter: 3, theorySection: 1, title: "Amplia la llista", topic: "Llistes",
+    description: "Afegeix «maduixa» al final de la llista i mostra la llista completa.",
+    requirements: ["Utilitza append()", "No recreïs manualment la llista"],
+    starter: `fruites = ["poma", "pera"]\n# Afegeix maduixa i mostra la llista\n`,
+    tests: [{ inputs: [], output: "['poma', 'pera', 'maduixa']" }],
+    rule: code => code.includes(".append(") ? null : "El resultat és correcte, però l'exercici demana practicar el mètode append().",
+    hints: ["append() és un mètode de les llistes.", `fruites.append("maduixa")`, "Després mostra fruites."]
+  },
+  {
+    id: "recorre-llista", chapter: 3, theorySection: 2, title: "Saluda la classe", topic: "Bucle for",
+    description: "Recorre la llista i mostra «Hola, nom» per a cada alumne.",
+    requirements: ["Utilitza un bucle for", "No escriguis tres print() manuals"],
+    starter: `alumnes = ["Ada", "Pau", "Linus"]\n# Saluda cada alumne\n`,
+    tests: [{ inputs: [], output: "Hola, Ada\nHola, Pau\nHola, Linus" }],
+    rule: code => /\bfor\b/.test(code) ? null : "El resultat és correcte, però has de recórrer la llista amb un bucle for.",
+    hints: ["Crea una variable temporal per cada alumne.", `for alumne in alumnes:`, "Dins del bucle, concatena «Hola, » i alumne."]
+  },
+  {
+    id: "suma-fins-n", chapter: 3, theorySection: 3, title: "Suma fins a N", topic: "range()",
+    description: "Demana un nombre N i mostra la suma de tots els enters de l'1 fins a N.",
+    requirements: ["Utilitza range()", "Acumula el resultat en una variable"],
+    starter: `n = int(input("N: "))\ntotal = 0\n`,
+    inputLabels: ["Nombre N"],
+    tests: [{ inputs: ["5"], output: "15" }, { inputs: ["10"], output: "55" }],
+    rule: code => code.includes("range(") ? null : "La suma és correcta, però has de practicar range().",
+    hints: ["range() no inclou el límit final.", "Recorre range(1, n + 1).", "Afegeix cada número a total."]
+  },
+  {
+    id: "compta-vocals", chapter: 3, theorySection: 2, title: "Compta vocals", topic: "Iteració de strings",
+    description: "Demana un text en minúscules i mostra quantes vocals conté.",
+    requirements: ["Recorre el text amb for", "Comprova si cada lletra és una vocal"],
+    starter: `text = input("Text en minúscules: ")\ncomptador = 0\n`,
+    inputLabels: ["Text en minúscules"],
+    tests: [{ inputs: ["python"], output: "1" }, { inputs: ["programacio"], output: "5" }],
+    hints: ["Un string també es pot recórrer amb for.", "Pots comprovar si lletra està dins de «aeiou».", "Augmenta el comptador quan trobis una vocal."]
+  },
+  {
+    id: "compte-enrere", chapter: 3, theorySection: 4, title: "Compte enrere", topic: "Bucle while",
+    description: "Demana un nombre i mostra un compte enrere fins a 1. Al final mostra «Fi».",
+    requirements: ["Utilitza while", "Actualitza el comptador dins del bucle"],
+    starter: `numero = int(input("Comença a: "))\n`,
+    inputLabels: ["Nombre inicial"],
+    tests: [{ inputs: ["3"], output: "3\n2\n1\nFi" }, { inputs: ["1"], output: "1\nFi" }],
+    rule: code => /\bwhile\b/.test(code) ? null : "El resultat és correcte, però l'exercici demana utilitzar while.",
+    hints: ["Repeteix mentre numero sigui més gran que zero.", "Resta 1 després de mostrar-lo.", "Mostra «Fi» fora del bucle."]
+  },
+  {
+    id: "funcio-saluda", chapter: 4, theorySection: 0, title: "La primera funció", topic: "def",
+    description: "Defineix una funció saluda() que mostri «Hola!» i crida-la dues vegades.",
+    requirements: ["Defineix saluda() amb def", "Crida la funció dues vegades"],
+    starter: `# Defineix la funció i crida-la dues vegades\n`,
+    tests: [{ inputs: [], output: "Hola!\nHola!" }],
+    rule: code => /\bdef\s+saluda\s*\(/.test(code) ? null : "Has de definir una funció anomenada saluda.",
+    hints: ["Una definició comença amb def.", `def saluda():`, "Recorda cridar saluda() dues vegades."]
+  },
+  {
+    id: "funcio-parametre", chapter: 4, theorySection: 1, title: "Saluda amb paràmetre", topic: "Paràmetres",
+    description: "Defineix saluda(nom) perquè mostri «Hola, nom!» i utilitza-la amb el nom introduït.",
+    requirements: ["La funció ha de rebre un paràmetre", "Crida-la amb la resposta de input()"],
+    starter: `def saluda(nom):\n    # Completa la funció\n    pass\n\nnom = input("Nom: ")\nsaluda(nom)`,
+    inputLabels: ["Nom"],
+    tests: [{ inputs: ["Ada"], output: "Hola, Ada!" }, { inputs: ["Nil"], output: "Hola, Nil!" }],
+    hints: ["Dins de la funció, utilitza el paràmetre nom.", "Concatena «Hola, », nom i «!».", "Substitueix pass per print(...)."]
+  },
+  {
+    id: "funcio-quadrat", chapter: 4, theorySection: 2, title: "Retorna el quadrat", topic: "return",
+    description: "Completa quadrat(numero) perquè retorni el quadrat del nombre.",
+    requirements: ["Utilitza return", "No facis print() dins de la funció"],
+    starter: `def quadrat(numero):\n    # Retorna el resultat\n    pass\n\nnumero = int(input("Número: "))\nprint(quadrat(numero))`,
+    inputLabels: ["Número"],
+    tests: [{ inputs: ["5"], output: "25" }, { inputs: ["9"], output: "81" }],
+    rule: code => /\breturn\b/.test(code) ? null : "El resultat és correcte, però la funció ha de retornar-lo amb return.",
+    hints: ["El quadrat és numero ** 2.", "return envia el resultat fora de la funció.", "Substitueix pass per return numero ** 2."]
+  },
+  {
+    id: "funcio-major", chapter: 4, theorySection: 2, title: "El nombre més gran", topic: "Funcions i decisions",
+    description: "Completa major(a, b) perquè retorni el nombre més gran.",
+    requirements: ["Utilitza dos paràmetres", "Utilitza return"],
+    starter: `def major(a, b):\n    # Retorna el valor més gran\n    pass\n\na = int(input("A: "))\nb = int(input("B: "))\nprint(major(a, b))`,
+    inputLabels: ["Nombre A", "Nombre B"],
+    tests: [{ inputs: ["7", "3"], output: "7" }, { inputs: ["2", "9"], output: "9" }],
+    hints: ["Compara a i b dins de la funció.", "Retorna a si és més gran o igual.", "En cas contrari, retorna b."]
+  },
+  {
+    id: "metode-majuscules", chapter: 4, theorySection: 4, title: "Utilitza un mètode", topic: "Mètodes",
+    description: "Demana una paraula i mostra-la completament en majúscules utilitzant un mètode de string.",
+    requirements: ["Utilitza el mètode upper()", "Ha de funcionar amb qualsevol paraula"],
+    starter: `paraula = input("Paraula: ")\n`,
+    inputLabels: ["Paraula"],
+    tests: [{ inputs: ["python"], output: "PYTHON" }, { inputs: ["Hola"], output: "HOLA" }],
+    rule: code => code.includes(".upper(") ? null : "El resultat és correcte, però has d'utilitzar el mètode upper().",
+    hints: ["Els mètodes s'escriuen després de l'objecte.", "El mètode és upper().", "Mostra paraula.upper()."]
+  },
+  {
+    id: "modul-math", chapter: 4, theorySection: 5, title: "Arrel quadrada", topic: "Mòduls",
+    description: "Importa math, demana un nombre i mostra'n l'arrel quadrada.",
+    requirements: ["Utilitza import math", "Utilitza math.sqrt()"],
+    starter: `# Importa el mòdul math\n\nnumero = float(input("Número: "))\n`,
+    inputLabels: ["Número"],
+    tests: [{ inputs: ["16"], output: "4.0" }, { inputs: ["81"], output: "9.0" }],
+    rule: code => code.includes("math.sqrt(") ? null : "El resultat és correcte, però has de practicar math.sqrt().",
+    hints: ["Comença amb import math.", "La funció és sqrt dins de math.", "Mostra math.sqrt(numero)."]
   }
 ];
 
@@ -354,7 +521,7 @@ function renderChapter(chapter) {
     <div class="lesson-layout ${chapterIndexCollapsed ? "index-collapsed" : ""}">
       <article class="lesson-body">
         ${chapter.sections.map((section, index) => `<section id="${chapter.id}-${index}"><h2>${index + 1}. ${section.title}</h2>${section.html}</section>`).join("")}
-        ${chapter.id === "interaccions" ? `<section class="exercise-launch"><div><h2>Posa-ho en pràctica</h2><p>12 exercicis interactius amb feedback personalitzat.</p></div><a class="primary-button" href="#exercicis">Comença a practicar</a></section>` : ""}
+        <section class="exercise-launch"><div><h2>Posa-ho en pràctica</h2><p>${exercises.filter(ex => (ex.chapter || 1) === Number(chapter.number)).length} exercicis interactius d'aquest capítol.</p></div><a class="primary-button" href="#exercicis">Comença a practicar</a></section>
       </article>
       <aside class="lesson-index"><strong>En aquest capítol</strong>${chapter.sections.map((s, i) => `<button data-scroll="${chapter.id}-${i}">${i + 1}. ${s.title}</button>`).join("")}</aside>
     </div>
@@ -393,19 +560,31 @@ function renderChapter(chapter) {
 }
 
 function renderExerciseList() {
-  setActive("exercicis", "Exercicis · Interaccions bàsiques");
+  setActive("exercicis", "Exercicis interactius");
   page.innerHTML = `
     <header class="lesson-header">
       <span class="eyebrow">Laboratori de codi</span>
       <h1>Exercicis interactius</h1>
       <p>Resol els reptes al teu ritme. Provarem el teu codi amb diferents dades i t'ajudarem a entendre els errors.</p>
     </header>
-    <div class="exercise-list">${exercises.map((ex, i) => `
-      <button class="exercise-row ${state.completed.has(ex.id) ? "done" : ""}" data-exercise="${i}">
-        <span class="exercise-check">${state.completed.has(ex.id) ? "✓" : i + 1}</span>
-        <span class="exercise-row-copy"><strong>${ex.title}</strong><span>${ex.topic}</span></span>
-        <span>→</span>
-      </button>`).join("")}</div>`;
+    <div class="exercise-chapters">${chapters.map((chapter, chapterIndex) => {
+      const chapterExercises = exercises.filter(ex => (ex.chapter || 1) === chapterIndex + 1);
+      const completed = chapterExercises.filter(ex => state.completed.has(ex.id)).length;
+      return `<section class="exercise-chapter">
+        <header class="exercise-chapter-header">
+          <div><span class="chapter-id">CAPÍTOL ${chapter.number}</span><h2>${chapter.title}</h2><p>${chapter.description}</p></div>
+          <span class="chapter-progress">${completed} / ${chapterExercises.length}</span>
+        </header>
+        <div class="exercise-list">${chapterExercises.map((ex, i) => {
+          const globalIndex = exercises.indexOf(ex);
+          return `<button class="exercise-row ${state.completed.has(ex.id) ? "done" : ""}" data-exercise="${globalIndex}">
+            <span class="exercise-check">${state.completed.has(ex.id) ? "✓" : i + 1}</span>
+            <span class="exercise-row-copy"><strong>${ex.title}</strong><span>${ex.topic}</span></span>
+            <span>→</span>
+          </button>`;
+        }).join("")}</div>
+      </section>`;
+    }).join("")}</div>`;
   page.querySelectorAll("[data-exercise]").forEach(b => b.addEventListener("click", () => {
     state.currentExercise = Number(b.dataset.exercise);
     navigate(`exercici-${state.currentExercise + 1}`);
@@ -490,6 +669,9 @@ function renderExercise(index) {
 }
 
 function getExerciseTheory(exercise) {
+  if (exercise.chapter && Number.isInteger(exercise.theorySection)) {
+    return chapters[exercise.chapter - 1].sections[exercise.theorySection];
+  }
   const sectionByExercise = {
     "hola-mon": 0,
     "corregeix-errors": 0,
